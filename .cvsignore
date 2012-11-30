@@ -1,0 +1,9 @@
+*.dll
+*.ini
+*.lib
+*.map
+*.res
+ctags.*
+project*.cpe
+test*
+tmp*

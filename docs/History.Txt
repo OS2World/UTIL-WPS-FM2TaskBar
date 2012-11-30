@@ -1,0 +1,41 @@
+
+TASKBAR Change Log
+==================
+
+Fri Oct 31 23:10:24 PDT 2003 Steven H. Levine <steve53@earthlink    >
+
+	* Release Version - 1.8
+
+Tue Jun 03 19:13:25 PDT 2003 Steven H. Levine <steve53@earthlink    >
+
+	* Release Version - 1.7d
+
+	* Correct switchlist icon background redraw - 2nd try
+
+Fri May 30 20:09:59 PDT 2003 Steven H. Levine <steve53@earthlink    >
+
+	* Release Version - 1.7c
+
+	* Correct switchlist icon background redraw
+
+Wed May 28 14:55:39 PDT 2003 Steven H. Levine <steve53@earthlink    >
+
+	* Release Version - 1.7b
+
+	* Restore WPS to taskbar selection list
+
+Sat Apr 19 23:51:56 PDT 2003 Steven H. Levine <steve53@earthlink    >
+
+	* Release Version - 1.7a
+
+	* Correct popup
+
+        * Correct icon background fill
+
+Tue Sep 25 12:20:36 PDT 2001 Steven H. Levine <steve53@earthlink    >
+
+	* Release Version - 1.7
+
+	* Build with VAC 3.08
+
+$Id: History.Txt,v 1.3 2003/11/01 07:36:30 root Exp $

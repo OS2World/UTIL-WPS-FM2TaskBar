@@ -1,0 +1,78 @@
+
+# makefile - taskbar
+# $Id: MAKEFILE,v 1.4 2003/06/04 02:12:14 root Exp $
+
+# Copyright (c) 1997, 2001 Mark Kimes
+# Copyright (c) 2001 Steven Levine & Associates, Inc.
+
+# Revisions	04 Apr 96 MK - Baseline
+#		25 Sep 01 SHL - Update for VAC 3.08
+#		19 Apr 03 SHL - Add missing dependencies
+#		31 May 03 SHL - More missing dependencies
+
+!IFNDEF DEBUG
+DEBUG = 0
+!ENDIF
+
+BASEEXE   = taskbar
+BASEDLL   = taskhook
+
+CC        = icc
+LINK      = ilink
+
+!IF $(DEBUG)
+CCEXE     = /DDEBUG /G5 /Ge+ /Gm+ /Gs- /O+ /Ss /Ti /W3 /C
+CCDLL     = /DDEBUG /G5 /Ge- /O+ /Rn /Ss /Ti /W3 /C
+LFLAGSEXE = /ALIGN:4 /DE /EXEPACK /MAP /NOI /PMTYPE:PM
+LFLAGSDLL = /ALIGN:4 /DE /EXEPACK /MAP /NOE /NOI
+!ELSE
+CCEXE     = /G5 /Ge+ /Gm+ /Gs- /O+ /Ss /W3 /C
+CCDLL     = /G5 /Ge- /O+ /Rn /Ss /W3 /C
+LFLAGSEXE = /ALIGN:4 /EXEPACK /MAP /NOI /PMTYPE:PM
+LFLAGSDLL = /ALIGN:4 /EXEPACK /MAP /NOE /NOI
+!ENDIF
+
+#--------------------------
+#  All of the object files.
+#--------------------------
+
+ALL_OBJEXE = $(BASEEXE).obj findwps.obj
+
+ALL_OBJDLL = $(BASEDLL).obj
+
+all: $(BASEDLL).dll $(BASEEXE).exe
+
+$(BASEEXE).res: $(BASEEXE).rc taskbar.h *.ico
+
+$(BASEDLL).obj:  $(BASEDLL).c taskbar.h
+	$(CC) $(CCDLL) $(BASEDLL).c
+
+$(BASEEXE).obj: $(BASEEXE).c taskhook.h taskbar.h procstat.h
+
+findwps.obj:  findwps.c taskbar.h
+
+.c.obj:
+  $(CC) $(CCEXE) $*.c
+
+$(BASEDLL).dll: $(ALL_OBJDLL) $(BASEDLL).def
+ @REM @<<$(BASEDLL).@0
+ $(LFLAGSDLL)
+ $(ALL_OBJDLL)
+ $(BASEDLL).def
+<<
+ type $(BASEDLL).@0
+ $(LINK) @$(BASEDLL).@0
+ implib $(BASEDLL).lib $(BASEDLL).def
+
+$(BASEEXE).exe: $(ALL_OBJEXE) $(BASEEXE).def $(BASEEXE).res $(BASEDLL).lib
+ @REM @<<$(BASEEXE).@0
+ $(LFLAGSEXE)
+ $(ALL_OBJEXE)
+ $(BASEDLL).lib
+ $(BASEEXE).def
+<<
+ type $(BASEEXE).@0
+ $(LINK) @$(BASEEXE).@0
+ rc -p -x $(BASEEXE).res $(BASEEXE).exe
+
+# The end

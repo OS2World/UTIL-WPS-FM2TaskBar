@@ -1,0 +1,7 @@
+NAME         TASKBAR WINDOWAPI
+
+DESCRIPTION  '@#SLAInc:1.08#@##1## 10/31/2003 12:00:00      SLAMain:ASD:EN:US:99:U:8101@@ FM/2 tasklist/program launcher/etc. Copyright (c) 1995 M. Kimes Copyright (c) 2001, 2003 Steven Levine and Associates, Inc.'
+
+IMPORTS      DOSQPROCSTATUS=DOSCALLS.154
+PROTMODE
+STACKSIZE    524288

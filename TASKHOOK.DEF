@@ -1,0 +1,44 @@
+LIBRARY TASKHOOK
+
+DESCRIPTION  '@#SLAInc:1.08#@##1## 10/01/2003 12:00:00      SLAMain:ASD:EN:US:99:U:8101@@ FM/2 tasklist hook DLL. Copyright (c) 1995 M. Kimes Copyright (c) 2001, 2003 Steven Levine and Associates, Inc.'
+
+CODE    LOADONCALL
+DATA    LOADONCALL
+
+EXPORTS
+  InitDLL                     @1                NONAME
+  StartInputHook              @2                NONAME
+  StopHooks                   @3                NONAME
+  InputProc                   @4                NONAME
+  fWinShowing                 @5                NONAME
+  fMenuShowing                @6                NONAME
+  fSlidingFocus               @7                NONAME
+  hwndDesktop                 @8                NONAME
+  hwndWPS                     @9                NONAME
+  hwndTaskbar                 @10               NONAME
+  hwndBottom                  @11               NONAME
+  dtPid                       @12               NONAME
+  xScreen                     @13               NONAME
+  yScreen                     @14               NONAME
+  xIcon                       @15               NONAME
+  yIcon                       @16               NONAME
+  myPid                       @17               NONAME
+  yNext                       @18               NONAME
+  fNoZorderChange             @19               NONAME
+  fB2Bottom                   @20               NONAME
+  fB3Close                    @21               NONAME
+  fLeft                       @22               NONAME
+  fRight                      @23               NONAME
+  fCenter                     @24               NONAME
+  yHi                         @25               NONAME
+  fDlgShowing                 @26               NONAME
+  fB3DblClk                   @27               NONAME
+  fKeyShowing                 @28               NONAME
+  fNoHot                      @29               NONAME
+  fLeftHot                    @30               NONAME
+  fWrapMouse                  @31               NONAME
+  fCtrlTab                    @32               NONAME
+  StartSendHook               @33               NONAME
+  SendProc                    @34               NONAME
+  PostMsg                     @35               NONAME
+  fStayUp                     @36               NONAME

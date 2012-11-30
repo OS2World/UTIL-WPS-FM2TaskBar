@@ -1,0 +1,5 @@
+;
+;Add items to exclude from being moved on virtual desktops to this file,
+;one per line, as desired.  The text you add should be
+;the title bar text (can be partial).
+;

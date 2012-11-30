@@ -1,0 +1,252 @@
+
+/****************************************************************************
+
+    FM/2 Taskbar Resources
+    $Id: TASKBAR.RC,v 1.4 2003/11/01 08:15:32 root Exp $
+
+    Copyright (c) 2001 Mark Kimes
+    Copyright (c) 2001, 2003 Steven Levine and Associates, Inc.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Revisions  19 Aug 01 MK - Baseline
+               19 Apr 03 SHL - Center START_VERSION better
+               31 May 03 SHL - Avoid duplicate res warning for MAIN_ID
+                               blank.ico now 40x40 grey
+               31 Oct 03 SHL - Correct odd dialog IDs
+
+*****************************************************************************/
+
+#include <os2.h>
+#include "taskbar.h"
+
+/* DEFAULTICON                      taskbar.ico */
+ICON        MAIN_ID                 taskbar.ico
+ICON        APP_POINTER             app.ico
+ICON        FM2_ICON                fm3.ico
+ICON        BLANK_POINTER           blank.ico
+BITMAP      START_BITMAP            barebone.bmp
+
+MENU MAIN_FIRST {
+  MENUITEM "~Show",                 IDM_SHOW
+  MENUITEM "~Hide",                 IDM_HIDE
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "~Move to this desktop", IDM_MOVEDESKTOP
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "~Jumpable toggle",      IDM_JUMPABLE
+  MENUITEM "~Remove from window list",IDM_REMOVEFROMLIST
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "~Close",                IDM_CLOSE
+  MENUITEM "~Kill",                 IDM_KILL
+}
+
+MENU MAIN_ID {
+  MENUITEM "~About FM/2 Taskbar...",IDM_ABOUT
+  MENUITEM "~Logo...",              IDM_LOGO
+  MENUITEM "~Help...",              IDM_HELP
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "~Settings...",          IDM_SETUP
+  MENUITEM "~Reload taskbar excludes",IDM_RELOADTEXCLUDES
+  MENUITEM "Edit taskbar excludes...",IDM_EDITTEXCLUDES
+  MENUITEM "Reload ~virtual excludes",IDM_RELOADVEXCLUDES
+  MENUITEM "Edit virtual excludes...",IDM_EDITVEXCLUDES
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "~Close taskbar",        IDM_CLOSE
+}
+
+MENU MAIN_VIRTUAL {
+  MENUITEM "~FM/2",                 IDM_OPENFM2
+  MENUITEM "FM/2 folder",           IDM_OPENFM2FOLDER
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "OS/2 window",           IDM_OPENOS2WIN
+  MENUITEM "OS/2 full screen",      IDM_OPENOS2FULL
+  MENUITEM "Dos window",            IDM_OPENDOSWIN
+  MENUITEM "Dos full screen",       IDM_OPENDOSFULL
+  MENUITEM "WinOS2 full screen",    IDM_OPENWINOS2
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "~Launchpad",            IDM_OPENLAUNCHPAD
+  MENUITEM "~Drives",               IDM_OPENDRIVES
+  MENUITEM "F~ont palette",         IDM_OPENFONTPALETTE
+  MENUITEM "~Solid color palette",  IDM_OPENSOLIDCOLOR
+  MENUITEM "~Hires color palette",  IDM_OPENHIRESCOLOR
+  MENUITEM "~Templates",            IDM_OPENTEMPLATES
+  MENUITEM "S~ystem setup folder",  IDM_OPENSETUP
+  MENUITEM "~Clock",                IDM_OPENCLOCK
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "Hide all",              IDM_MINIMIZEALL
+  MENUITEM "Restore and show all",  IDM_RESTOREALL
+  MENUITEM "Reset virtual desktops",IDM_RESETDESKTOPS
+  MENUITEM "",                      -1,           MIS_SEPARATOR
+  MENUITEM "~Run...",               IDM_RUN
+}
+
+DLGTEMPLATE RUN_FRAME LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "FM/2 Taskbar:  Run a program/object", RUN_FRAME, 48, 54, 250, 68,
+            WS_VISIBLE, FCF_TITLEBAR | FCF_TASKLIST
+    BEGIN
+        GROUPBOX        "", -1, 200, 2, 48, 66, NOT WS_GROUP
+        CONTROL         "", -1, 190, 50, 20, 2, WC_STATIC, SS_FGNDRECT |
+                        WS_VISIBLE
+        LTEXT           "Program/object name:", -1, 4, 56, 192, 8, 
+                        DT_VCENTER
+        LTEXT           "Default directory:", RUN_DIRHDR, 4, 16, 192, 8,
+                        DT_VCENTER
+        LTEXT           "Arguments:", RUN_ARGSHDR, 4, 36, 192, 8, DT_VCENTER
+        ENTRYFIELD      "", RUN_NAME, 6, 46, 188, 8, ES_MARGIN | WS_GROUP
+        ENTRYFIELD      "", RUN_ARGS, 6, 26, 188, 8, ES_MARGIN
+        ENTRYFIELD      "", RUN_DIR, 6, 6, 188, 8, ES_MARGIN
+        DEFPUSHBUTTON   "Okay", DID_OK, 204, 26, 40, 14, BS_NOPOINTERFOCUS
+        PUSHBUTTON      "Cancel", DID_CANCEL, 204, 4, 40, 14, WS_GROUP |
+                        BS_NOPOINTERFOCUS
+        PUSHBUTTON      "~Find", RUN_FIND, 204, 47, 40, 14, BS_NOPOINTERFOCUS
+    END
+END
+
+DLGTEMPLATE TAB_FRAME LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", TAB_FRAME, 100, 86, 88, 54, NOT FS_DLGBORDER | FS_BORDER | 
+            WS_VISIBLE
+    BEGIN
+        CTEXT           "FM/2 Taskbar", -1, 2, 40, 84, 12, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00F0F0F0L
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00404040L
+                        PRESPARAMS PP_FONTNAMESIZE, "12.Tms Rmn.Bold"
+        GROUPBOX        "", -1, 31, 18, 26, 24
+        GROUPBOX        "", -1, 2, 16, 84, 27, NOT WS_GROUP
+        GROUPBOX        "", -1, 2, 2, 84, 18, NOT WS_GROUP
+        ICON            APP_POINTER, TAB_ICON0, 8, 20, 20, 16, WS_GROUP
+        ICON            APP_POINTER, TAB_ICON1, 34, 20, 20, 16
+        ICON            APP_POINTER, TAB_ICON2, 60, 20, 20, 16
+        LTEXT           "", TAB_NAME, 5, 5, 78, 8, DT_VCENTER
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+    END
+END
+
+DLGTEMPLATE START_FRAME LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", START_FRAME, 24, 24, 219, 99, WS_VISIBLE
+    BEGIN
+        GROUPBOX        "", -1, 7, 33, 205, 64, NOT WS_GROUP
+        CONTROL         "", -1, 1, 2, 216, 95, WC_STATIC, SS_FGNDFRAME | 
+                        WS_VISIBLE
+        GROUPBOX        "", -1, 5, 5, 208, 93, NOT WS_GROUP
+        GROUPBOX        "", -1, 132, 7, 74, 26, NOT WS_GROUP
+        CTEXT           "FM/2 Taskbar", -1, 9, 66, 198, 24, DT_VCENTER | NOT
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "32.Times New Roman"
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        CTEXT           "", START_VERSION, 78, 56, 56, 8, DT_VCENTER | NOT
+                        WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        CTEXT           "Free software from Mark Kimes", -1, 10, 46, 196, 8,
+                        DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        CTEXT           "all rights reserved", -1, 10, 36, 196, 8, 
+                        DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        CONTROL         START_BITMAP, START_BITMAP, 10, 10, 21, 16,
+                        WC_STATIC, SS_BITMAP | WS_VISIBLE
+        ICON            FM2_ICON, FM2_ICON, 136, 10, 21, 16
+        ICON            MAIN_ID, START_ICON, 182, 10, 21, 16
+        DEFPUSHBUTTON   "Okay", DID_OK, 90, 12, 34, 14,
+                        BS_NOPOINTERFOCUS
+    END
+END
+
+DLGTEMPLATE SET_FRAME LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "FM/2 Taskbar:  Settings", SET_FRAME, 12, 46, 354, 154, 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        " Rodentia ", -1, 2, 16, 178, 96, NOT WS_GROUP
+        GROUPBOX        " Activation ", -1, 2, 116, 178, 38, NOT WS_GROUP
+        GROUPBOX        " Virtual desktops ", -1, 184, 106, 166, 48, NOT 
+                        WS_GROUP
+        GROUPBOX        " Hotkey taskswitching ", -1, 184, 56, 166, 48, NOT 
+                        WS_GROUP
+        GROUPBOX        " Miscellaneous ", -1, 184, 20, 166, 34, NOT 
+                        WS_GROUP
+        RTEXT           "Height in pixels above bottom of screen:", -1, 6, 
+                        122, 134, 8, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "~Left", SET_LEFT, 12, 134, 38, 10, 
+                        BS_NOPOINTERFOCUS | WS_GROUP
+        AUTOCHECKBOX    "~Center", SET_CENTER, 78, 134, 42, 10, 
+                        BS_NOPOINTERFOCUS
+        AUTOCHECKBOX    "~Right", SET_RIGHT, 137, 134, 38, 10, 
+                        BS_NOPOINTERFOCUS
+        CONTROL         "", SET_HEIGHT, 142, 118, 30, 12, WC_SPINBUTTON, 
+                        SPBS_ALLCHARACTERS | SPBS_NUMERICONLY | 
+                        SPBS_READONLY | SPBS_MASTER | SPBS_SERVANT | 
+                        SPBS_JUSTDEFAULT | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        AUTOCHECKBOX    "Re~position mouse on activating window", 
+                        SET_REPOSMOUSE, 10, 92, 156, 10, BS_NOPOINTERFOCUS | 
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "~Focus window under mouse ptr", SET_SLIDINGFOCUS, 
+                        10, 80, 156, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "No ~Zorder change w/ sliding focus", 
+                        SET_NOZORDERCHANGE, 18, 68, 148, 10, 
+                        BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Button ~2 on titlebar bottoms window", SET_B2BOTTOM, 
+                        10, 56, 156, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Button ~3 on titlebar closes window", SET_B3CLOSE, 
+                        10, 44, 156, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Button 3 = Button ~1 double-click", SET_B3DBLCLK, 
+                        10, 32, 156, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "~Wrap mouse pointer at screen edges", SET_WRAPMOUSE, 
+                        10, 20, 156, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "~Move folders", SET_MOVEFOLDERS, 190, 134, 156, 10, 
+                        BS_NOPOINTERFOCUS | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "~Show detail in mini desktop", SET_SHOWMINIWINS, 
+                        190, 122, 156, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "~Disable virtual desktops", SET_DISABLEDESKTOPS, 
+                        190, 110, 156, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Disable ~hotkey switching", SET_NOHOT, 190, 84, 156, 
+                        10, BS_NOPOINTERFOCUS | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Left~-hand hotkey switching (Z/X)", SET_LEFTHOT, 
+                        190, 72, 148, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "~Also use CTRL-ALT-Tab switching", SET_CTRLTAB, 190, 
+                        60, 148, 10, BS_NOPOINTERFOCUS
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Animate taskbar window", SET_ANIMATE, 190, 34, 156, 
+                        10, BS_NOPOINTERFOCUS | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        AUTOCHECKBOX    "Show process and thread counts", SET_PROCS, 190, 24, 
+                        156, 10, BS_NOPOINTERFOCUS | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        DEFPUSHBUTTON   "Okay", DID_OK, 188, 4, 40, 14, 
+                        BS_NOPOINTERFOCUS | WS_GROUP
+        PUSHBUTTON      "~Undo", SET_UNDO, 250, 4, 40, 14, BS_NOPOINTERFOCUS
+        PUSHBUTTON      "Cancel", DID_CANCEL, 310, 4, 40, 14, 
+                        BS_NOPOINTERFOCUS
+    END
+END
+
